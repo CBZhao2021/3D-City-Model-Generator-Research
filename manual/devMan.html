@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>環境構築手順書 </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="環境構築手順書 ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../resources/logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="環境構築手順書">環境構築手順書</h1>
+
+<h1 id="1-本書について">1 本書について</h1>
+<p>本書では、3D都市モデル生成シミュレータシステム（以下「本システム」という。）の利用環境構築手順について記載しています。</p>
+<h1 id="2-動作環境">2 動作環境</h1>
+<p>本システムの動作環境は以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>最小動作環境</th>
+<th>推奨動作環境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OS</td>
+<td>Ubuntu 20.08</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>メモリ12GB以上</td>
+<td>NVIDIA A100</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Python==3.9</td>
+<td>同左</td>
+</tr>
+<tr>
+<td>CUDA</td>
+<td>CUDA&gt;=11.3</td>
+<td>CUDA==12.4</td>
+</tr>
+</tbody>
+</table>
+<h1 id="3-サーバー環境構築及びライブラリインストール手順">3 サーバー環境構築及びライブラリインストール手順</h1>
+<h2 id="データとモデル準備">データとモデル準備</h2>
+<p>本システムでは、大容量の深層学習モデルファイルを多数扱うため、すべてのモデルファイルをGitHubに含めることができません。したがって、以下のURLより、あらかじめ構成されたモデルファイル一式をダウンロードする必要があります。<br>
+<a href="https://www.geospatial.jp/ckan/dataset/3daiready">モデルファイルのダウンロード</a></p>
+<h2 id="python環境の構築">python環境の構築</h2>
+<p>以下のコマンドを使ってインストールします。</p>
+<pre><code>cd Bridge2025UI
+conda env create -f environment.yml
+conda activate gen3d_UI_2025
+pip install -r requirements.txt
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu124
+pip install -U &quot;urllib3==1.26.18&quot;
+</code></pre>
+<h2 id="フロントエンド環境の構築">フロントエンド環境の構築</h2>
+<p>本システムではフロントエンドの実行環境としてNode.jsを使用します。Node.jsのバージョン管理のためにnvm（Node Version Manager）を用いて、指定バージョンをインストールし、使用環境を構築します。</p>
+<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.zshrc
+nvm install 18
+nvm use 18
+</code></pre>
+<p>外部ネットワークへの接続やトンネル通信のためにcloudflaredを使用します。以下のコマンドにより、公式リリースからインストーラ（.debファイル）をダウンロードし、システムにインストールします。</p>
+<pre><code>wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared-linux-amd64.deb
+</code></pre>
+<h1 id="4-準備物一覧">4 準備物一覧</h1>
+<p>アプリケーションを利用するために以下のデータを入手します。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>データ種別</th>
+<th>用途</th>
+<th>形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>①</td>
+<td>コード及びモデル</td>
+<td>3D都市モデル生成</td>
+<td>.zip</td>
+</tr>
+</tbody>
+</table>
+<p>データ準備完了後、下記のコマンドで.zipを解凍：</p>
+<pre><code>unzip Bridge2025UI.zip
+</code></pre>
+<p>ファイル構造は以下の通りです：</p>
+<pre><code>root
+├── BldgGen2025
+├── BridgeUI
+├── environment.yml
+└── requirements.txt
+</code></pre>
+<p>Bridge2025UIは下記の機械学習と深層学習のモデルが含まれています：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>データ種別</th>
+<th>用途</th>
+<th>形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>①</td>
+<td>生成AI建物生成モデル</td>
+<td>建物生成</td>
+<td>.ckpt</td>
+</tr>
+<tr>
+<td>②</td>
+<td>深層学習植生自動抽出モデル</td>
+<td>植生生成</td>
+<td>.onnx</td>
+</tr>
+<tr>
+<td>③</td>
+<td>深層学習MMS点群開口部自動抽出モデル</td>
+<td>LOD3生成</td>
+<td>.pt</td>
+</tr>
+<tr>
+<td>④</td>
+<td>深層学習街路画像開口部自動抽出モデル</td>
+<td>LOD3生成</td>
+<td>.pt</td>
+</tr>
+</tbody>
+</table>
+<p>モデルの置く場所は既にBridge2025UI.zipで配置完了しています：</p>
+<h1 id="5-プログラム実行">5 プログラム実行</h1>
+<p>ツールを起動するには、まずフロントエンド環境を構築します。次に、既存の依存関係を一度削除してから再インストールを行い、その後ビルドを実行し、開発用サーバーを起動します。</p>
+<pre><code>conda activate gen3d_UI_2025
+cd BridgeUI
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+npm run dev:full
+</code></pre>
+<p>ローカルサーバーを外部公開するため、以下のコマンドを実行します。</p>
+<pre><code>cloudflared tunnel --url http://localhost:8080 --protocol http2
+</code></pre>
+<h1 id="6-本ツールを利用するにあたりユーザが準備する入力データ">6 本ツールを利用するにあたりユーザが準備する入力データ</h1>
+<p>本ツールを用いて 3D 都市モデルを生成するためには、以下の入力データをユーザ側で準備する必要があります。</p>
+<ul>
+<li>衛星画像データ</li>
+<li>建築物フットプリントデータ</li>
+<li>MMS（Mobile Mapping System）データ</li>
+</ul>
+<p>各データの仕様を以下に示します。</p>
+<hr>
+<h2 id="61-衛星画像データ">6.1 衛星画像データ</h2>
+<h3 id="1概要">（1）概要</h3>
+<p>衛星画像は、建築物モデル生成における基礎データとなります。</p>
+<h3 id="2推奨仕様">（2）推奨仕様</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推奨条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>解像度</td>
+<td>0.3m 以上</td>
+</tr>
+<tr>
+<td>バンド</td>
+<td>RGB（マルチスペクトル対応可）</td>
+</tr>
+<tr>
+<td>投影座標系</td>
+<td>平面直角座標系 または UTM</td>
+</tr>
+<tr>
+<td>データ形式</td>
+<td>GeoTIFF</td>
+</tr>
+<tr>
+<td>幾何補正</td>
+<td>オルソ補正済み</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="62-建築物フットプリントデータ">6.2 建築物フットプリントデータ</h2>
+<h3 id="1概要-1">（1）概要</h3>
+<p>建築物のフットプリントは、3D 都市モデル生成の基礎となるポリゴンデータです。</p>
+<h3 id="2推奨仕様-1">（2）推奨仕様</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推奨条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>データ形式</td>
+<td>GeoJSON</td>
+</tr>
+<tr>
+<td>ジオメトリ</td>
+<td>ポリゴン</td>
+</tr>
+<tr>
+<td>トポロジ</td>
+<td>自己交差なし</td>
+</tr>
+<tr>
+<td>座標系</td>
+<td>衛星画像と同一</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="63-mmsmobile-mapping-systemデータ">6.3 MMS（Mobile Mapping System）データ</h2>
+<h3 id="1概要-2">（1）概要</h3>
+<p>MMS データは、建築物の LOD3 モデル生成時の開口部（窓・扉）、都市設備、植生抽出に利用します。</p>
+<h3 id="2利用可能データ種別">（2）利用可能データ種別</h3>
+<ul>
+<li>沿道画像（全周画像または前方画像）</li>
+<li>三次元点群（LiDAR）</li>
+<li>位置情報（IMU）</li>
+</ul>
+<h3 id="3推奨仕様">（3）推奨仕様</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>推奨条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>点群密度</td>
+<td>500 点 / m² 以上推奨</td>
+</tr>
+<tr>
+<td>画像解像度</td>
+<td>4K 相当以上</td>
+</tr>
+<tr>
+<td>位置精度</td>
+<td>水平誤差 10cm 以下</td>
+</tr>
+<tr>
+<td>データ形式</td>
+<td>LAS / LAZ / JPEG / PNG</td>
+</tr>
+</tbody>
+</table>
+<hr>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
