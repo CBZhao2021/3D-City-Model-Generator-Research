@@ -1,42 +1,42 @@
-# 操作マニュアル
+# User Manual
 
-## 本書について
+## About This Document
 
-本書では、3D都市モデル生成シミュレータシステム（以下「本システム」という。）の操作手順について記載しています。
+This document describes the operating procedures for the 3D City Model Generation Simulator system, hereafter referred to as "the system."
 
-### 3D都市モデル生成までの流れ
+### Workflow for Generating a 3D City Model
 
 ![total_workflow](../resources/fig04.png)
 
-## 1 LOD1モデル生成
+## 1 LOD1 Model Generation
 
-デジタルシティサービスにアクセスし、生成を行う画面へ移動する。 
+Access the digital city service and go to the generation screen. 
 http://localhost:8080
 
 ![func_selection](../resources/fig09.png)
 
-①建物フットプリントをアップロードし、「生成」をクリックすると、 
-②建物フットプリントデータ範囲内のLOD1モデルが生成・可視化される。
+1. Upload the building footprint and click "Generate." 
+2. The LOD1 model within the building footprint data area is generated and visualized.
 
 ![lod1_gen](../resources/fig05.png)
 
-## 2 LOD2モデル生成
+## 2 LOD2 Model Generation
 
-①衛星画像をアップロードし、「生成」をクリックすると、
-②範囲内のLOD2モデルが生成・可視化される。
+1. Upload the satellite image and click "Generate."
+2. The LOD2 model within the target area is generated and visualized.
 
 ![lod2_gen](../resources/fig06.png)
 
-## 3 LOD3モデル生成
+## 3 LOD3 Model Generation
 
-①街路画像とMMS点群をアップロードし、「生成」をクリックすると、
-②範囲内のLOD3モデルが生成・可視化される。
+1. Upload the street images and MMS point cloud, then click "Generate."
+2. The LOD3 model within the target area is generated and visualized.
 
 ![lod3_gen](../resources/fig07.png)
 
-## 4 可視化するレイヤの選択
+## 4 Selecting Layers for Visualization
 
-表示したい生成結果のレイヤを選択（LOD別、BMQI可視化など）する。
+Select the generated-result layers to display, such as layers by LOD or BMQI visualization layers.
 
 ![layer_setting](../resources/fig08.png)
 

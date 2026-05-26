@@ -1,7 +1,7 @@
-# 3D都市モデル生成シミュレータ
+# 3D City Model Generation Simulator
 
-本リポジトリでは、Project PLATEAU 令和7年度ユースケース開発業務の一環として実施された「dt24-05 3D都市モデル生成シミュレータ」の成果である「3D都市モデル生成ツール」のソースコードを公開しています。
+This repository publishes the source code for the "3D City Model Generation Tool," an outcome of "dt24-05 3D City Model Generation Simulator," which was conducted as part of the Project PLATEAU fiscal year 2025 use case development program.
 
-「3D都市モデル生成ツール」は、建物フットプリントデータ、衛星画像、およびMMSデータに基づき、建築物、道路、植生、都市設備を含む3D都市モデルを自動生成するWebベースのオーサリングツールです。本ツールは、衛星画像や沿道画像と生成AIを組み合わせることで、LOD1〜LOD3の詳細度に対応した3D都市モデルを生成できます。
+The "3D City Model Generation Tool" is a web-based authoring tool that automatically generates 3D city models containing buildings, roads, vegetation, and city furniture based on building footprint data, satellite imagery, and MMS data. By combining satellite imagery, roadside imagery, and generative AI, the tool can generate 3D city models at levels of detail from LOD1 to LOD3.
 
 ![simulator_image](resources/fig03.png)

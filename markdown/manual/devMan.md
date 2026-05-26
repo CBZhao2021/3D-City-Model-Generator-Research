@@ -1,31 +1,31 @@
-# 環境構築手順書
+# Environment Setup Guide
 
-# 1 本書について
+# 1 About This Document
 
-本書では、3D都市モデル生成シミュレータシステム（以下「本システム」という。）の利用環境構築手順について記載しています。
+This document describes the procedure for setting up the operating environment for the 3D City Model Generation Simulator system, hereafter referred to as "the system."
 
-# 2 動作環境
+# 2 Operating Environment
 
-本システムの動作環境は以下のとおりです。
+The operating environment for this system is as follows.
 
-| 項目     | 最小動作環境       | 推奨動作環境      |
+| Item | Minimum operating environment | Recommended operating environment |
 |--------|--------------|-------------|
-| OS     | Ubuntu 20.08 | 同左          |
-| GPU    | メモリ12GB以上    | NVIDIA A100 |
-| Python | Python==3.9  | 同左          |
+| OS     | Ubuntu 20.08 | Same as left |
+| GPU    | 12 GB memory or more | NVIDIA A100 |
+| Python | Python==3.9  | Same as left |
 | CUDA   | CUDA>=11.3   | CUDA==12.4  |
 
 
-# 3 サーバー環境構築及びライブラリインストール手順
+# 3 Server Environment Setup and Library Installation Procedure
 
-## データとモデル準備
+## Data and Model Preparation
 
-本システムでは、大容量の深層学習モデルファイルを多数扱うため、すべてのモデルファイルをGitHubに含めることができません。したがって、以下のURLより、あらかじめ構成されたモデルファイル一式をダウンロードする必要があります。  
-[モデルファイルのダウンロード](https://www.geospatial.jp/ckan/dataset/3daiready)
+Because this system uses many large deep learning model files, not all model files can be included in GitHub. Therefore, you must download the preconfigured set of model files from the URL below in advance.  
+[Download model files](https://www.geospatial.jp/ckan/dataset/3daiready)
 
-## python環境の構築
+## Python Environment Setup
 
-以下のコマンドを使ってインストールします。
+Install the required packages with the following commands.
 ```
 cd Bridge2025UI
 conda env create -f environment.yml
@@ -35,9 +35,9 @@ pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https
 pip install -U "urllib3==1.26.18"
 ```
 
-## フロントエンド環境の構築
+## Frontend Environment Setup
 
-本システムではフロントエンドの実行環境としてNode.jsを使用します。Node.jsのバージョン管理のためにnvm（Node Version Manager）を用いて、指定バージョンをインストールし、使用環境を構築します。
+This system uses Node.js as the frontend runtime environment. Use nvm (Node Version Manager) to manage the Node.js version, install the specified version, and set up the runtime environment.
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.zshrc
@@ -45,28 +45,28 @@ nvm install 18
 nvm use 18
 ```
 
-外部ネットワークへの接続やトンネル通信のためにcloudflaredを使用します。以下のコマンドにより、公式リリースからインストーラ（.debファイル）をダウンロードし、システムにインストールします。
+cloudflared is used for external network access and tunnel communication. Download the installer (.deb file) from the official release and install it on the system with the following commands.
 ```
 wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
 sudo dpkg -i cloudflared-linux-amd64.deb
 ```
 
 
-# 4 準備物一覧
+# 4 Required Materials
 
-アプリケーションを利用するために以下のデータを入手します。
+Obtain the following data to use the application.
 
-|     | データ種別      | 用途              | 形式         |
+|     | Data type | Purpose | Format |
 |-----|------------|-----------------|------------|
-| ①   | コード及びモデル   | 3D都市モデル生成       | .zip       |
+| 1 | Code and models | 3D city model generation | .zip |
 
 
-データ準備完了後、下記のコマンドで.zipを解凍：
+After preparing the data, extract the .zip file with the following command:
 ```
 unzip Bridge2025UI.zip
 ```
 
-ファイル構造は以下の通りです：
+The file structure is as follows:
 ```
 root
 ├── BldgGen2025
@@ -75,20 +75,20 @@ root
 └── requirements.txt
 ```
 
-Bridge2025UIは下記の機械学習と深層学習のモデルが含まれています：
+Bridge2025UI includes the following machine learning and deep learning models:
 
-|   | データ種別               | 用途         | 形式    |
+|   | Data type | Purpose | Format |
 |---|---------------------|------------|-------|
-| ① | 生成AI建物生成モデル         | 建物生成   | .ckpt |
-| ② | 深層学習植生自動抽出モデル       | 植生生成   | .onnx |
-| ③ | 深層学習MMS点群開口部自動抽出モデル | LOD3生成    | .pt   |
-| ④ | 深層学習街路画像開口部自動抽出モデル  | LOD3生成 | .pt  |
+| 1 | Generative AI building generation model | Building generation | .ckpt |
+| 2 | Deep learning vegetation automatic extraction model | Vegetation generation | .onnx |
+| 3 | Deep learning MMS point-cloud opening automatic extraction model | LOD3 generation | .pt |
+| 4 | Deep learning street-image opening automatic extraction model | LOD3 generation | .pt |
 
-モデルの置く場所は既にBridge2025UI.zipで配置完了しています：
+The model locations are already arranged in Bridge2025UI.zip.
 
-# 5 プログラム実行
+# 5 Running the Program
 
-ツールを起動するには、まずフロントエンド環境を構築します。次に、既存の依存関係を一度削除してから再インストールを行い、その後ビルドを実行し、開発用サーバーを起動します。
+To start the tool, first set up the frontend environment. Then remove the existing dependencies once, reinstall them, run the build, and start the development server.
 
 ```
 conda activate gen3d_UI_2025
@@ -99,77 +99,77 @@ npm run build
 npm run dev:full
 ```
 
-ローカルサーバーを外部公開するため、以下のコマンドを実行します。
+Run the following command to expose the local server externally.
 ```
 cloudflared tunnel --url http://localhost:8080 --protocol http2
 ```
 
-# 6 本ツールを利用するにあたりユーザが準備する入力データ
+# 6 Input Data Prepared by the User
 
-本ツールを用いて 3D 都市モデルを生成するためには、以下の入力データをユーザ側で準備する必要があります。
+To generate 3D city models with this tool, users must prepare the following input data.
 
-- 衛星画像データ  
-- 建築物フットプリントデータ  
-- MMS（Mobile Mapping System）データ  
+- Satellite image data  
+- Building footprint data  
+- MMS (Mobile Mapping System) data  
 
-各データの仕様を以下に示します。
-
----
-
-## 6.1 衛星画像データ
-
-### （1）概要
-
-衛星画像は、建築物モデル生成における基礎データとなります。
-
-### （2）推奨仕様
-
-| 項目 | 推奨条件 |
-|------|----------|
-| 解像度 | 0.3m 以上 |
-| バンド | RGB（マルチスペクトル対応可） |
-| 投影座標系 | 平面直角座標系 または UTM |
-| データ形式 | GeoTIFF |
-| 幾何補正 | オルソ補正済み |
+The specifications for each data type are shown below.
 
 ---
 
-## 6.2 建築物フットプリントデータ
+## 6.1 Satellite Image Data
 
-### （1）概要
+### (1) Overview
 
-建築物のフットプリントは、3D 都市モデル生成の基礎となるポリゴンデータです。
+Satellite images are the base data for building model generation.
 
-### （2）推奨仕様
+### (2) Recommended Specifications
 
-| 項目 | 推奨条件 |
+| Item | Recommended condition |
 |------|----------|
-| データ形式 | GeoJSON |
-| ジオメトリ | ポリゴン |
-| トポロジ | 自己交差なし |
-| 座標系 | 衛星画像と同一 |
+| Resolution | 0.3 m or better |
+| Bands | RGB (multispectral data is also supported) |
+| Projected coordinate system | Plane rectangular coordinate system or UTM |
+| Data format | GeoTIFF |
+| Geometric correction | Orthorectified |
 
 ---
 
-## 6.3 MMS（Mobile Mapping System）データ
+## 6.2 Building Footprint Data
 
-### （1）概要
+### (1) Overview
 
-MMS データは、建築物の LOD3 モデル生成時の開口部（窓・扉）、都市設備、植生抽出に利用します。
+Building footprints are polygon data that serve as the basis for generating 3D city models.
 
-### （2）利用可能データ種別
+### (2) Recommended Specifications
 
-- 沿道画像（全周画像または前方画像）  
-- 三次元点群（LiDAR）  
-- 位置情報（IMU）
-
-### （3）推奨仕様
-
-| 項目 | 推奨条件 |
+| Item | Recommended condition |
 |------|----------|
-| 点群密度 | 500 点 / m² 以上推奨 |
-| 画像解像度 | 4K 相当以上 |
-| 位置精度 | 水平誤差 10cm 以下 |
-| データ形式 | LAS / LAZ / JPEG / PNG |
+| Data format | GeoJSON |
+| Geometry | Polygon |
+| Topology | No self-intersections |
+| Coordinate system | Same as the satellite image |
+
+---
+
+## 6.3 MMS (Mobile Mapping System) Data
+
+### (1) Overview
+
+MMS data are used to extract openings such as windows and doors, city furniture, and vegetation when generating LOD3 building models.
+
+### (2) Available Data Types
+
+- Roadside images (spherical images or forward-facing images)  
+- 3D point clouds (LiDAR)  
+- Positioning information (IMU)
+
+### (3) Recommended Specifications
+
+| Item | Recommended condition |
+|------|----------|
+| Point-cloud density | 500 points/m² or higher recommended |
+| Image resolution | 4K equivalent or higher |
+| Positioning accuracy | Horizontal error of 10 cm or less |
+| Data format | LAS / LAZ / JPEG / PNG |
 
 ---

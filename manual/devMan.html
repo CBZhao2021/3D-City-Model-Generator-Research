@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>環境構築手順書 </title>
+      <title>Environment Setup Guide </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="環境構築手順書 ">
+      <meta name="title" content="Environment Setup Guide ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -77,35 +77,35 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="環境構築手順書">環境構築手順書</h1>
+<h1 id="environment-setup-guide">Environment Setup Guide</h1>
 
-<h1 id="1-本書について">1 本書について</h1>
-<p>本書では、3D都市モデル生成シミュレータシステム（以下「本システム」という。）の利用環境構築手順について記載しています。</p>
-<h1 id="2-動作環境">2 動作環境</h1>
-<p>本システムの動作環境は以下のとおりです。</p>
+<h1 id="1-about-this-document">1 About This Document</h1>
+<p>This document describes the procedure for setting up the operating environment for the 3D City Model Generation Simulator system, hereafter referred to as &quot;the system.&quot;</p>
+<h1 id="2-operating-environment">2 Operating Environment</h1>
+<p>The operating environment for this system is as follows.</p>
 <table>
 <thead>
 <tr>
-<th>項目</th>
-<th>最小動作環境</th>
-<th>推奨動作環境</th>
+<th>Item</th>
+<th>Minimum operating environment</th>
+<th>Recommended operating environment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>OS</td>
 <td>Ubuntu 20.08</td>
-<td>同左</td>
+<td>Same as left</td>
 </tr>
 <tr>
 <td>GPU</td>
-<td>メモリ12GB以上</td>
+<td>12 GB memory or more</td>
 <td>NVIDIA A100</td>
 </tr>
 <tr>
 <td>Python</td>
 <td>Python==3.9</td>
-<td>同左</td>
+<td>Same as left</td>
 </tr>
 <tr>
 <td>CUDA</td>
@@ -114,12 +114,12 @@
 </tr>
 </tbody>
 </table>
-<h1 id="3-サーバー環境構築及びライブラリインストール手順">3 サーバー環境構築及びライブラリインストール手順</h1>
-<h2 id="データとモデル準備">データとモデル準備</h2>
-<p>本システムでは、大容量の深層学習モデルファイルを多数扱うため、すべてのモデルファイルをGitHubに含めることができません。したがって、以下のURLより、あらかじめ構成されたモデルファイル一式をダウンロードする必要があります。<br>
-<a href="https://www.geospatial.jp/ckan/dataset/3daiready">モデルファイルのダウンロード</a></p>
-<h2 id="python環境の構築">python環境の構築</h2>
-<p>以下のコマンドを使ってインストールします。</p>
+<h1 id="3-server-environment-setup-and-library-installation-procedure">3 Server Environment Setup and Library Installation Procedure</h1>
+<h2 id="data-and-model-preparation">Data and Model Preparation</h2>
+<p>Because this system uses many large deep learning model files, not all model files can be included in GitHub. Therefore, you must download the preconfigured set of model files from the URL below in advance.<br>
+<a href="https://www.geospatial.jp/ckan/dataset/3daiready">Download model files</a></p>
+<h2 id="python-environment-setup">Python Environment Setup</h2>
+<p>Install the required packages with the following commands.</p>
 <pre><code>cd Bridge2025UI
 conda env create -f environment.yml
 conda activate gen3d_UI_2025
@@ -127,87 +127,87 @@ pip install -r requirements.txt
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu124
 pip install -U &quot;urllib3==1.26.18&quot;
 </code></pre>
-<h2 id="フロントエンド環境の構築">フロントエンド環境の構築</h2>
-<p>本システムではフロントエンドの実行環境としてNode.jsを使用します。Node.jsのバージョン管理のためにnvm（Node Version Manager）を用いて、指定バージョンをインストールし、使用環境を構築します。</p>
+<h2 id="frontend-environment-setup">Frontend Environment Setup</h2>
+<p>This system uses Node.js as the frontend runtime environment. Use nvm (Node Version Manager) to manage the Node.js version, install the specified version, and set up the runtime environment.</p>
 <pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.zshrc
 nvm install 18
 nvm use 18
 </code></pre>
-<p>外部ネットワークへの接続やトンネル通信のためにcloudflaredを使用します。以下のコマンドにより、公式リリースからインストーラ（.debファイル）をダウンロードし、システムにインストールします。</p>
+<p>cloudflared is used for external network access and tunnel communication. Download the installer (.deb file) from the official release and install it on the system with the following commands.</p>
 <pre><code>wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
 sudo dpkg -i cloudflared-linux-amd64.deb
 </code></pre>
-<h1 id="4-準備物一覧">4 準備物一覧</h1>
-<p>アプリケーションを利用するために以下のデータを入手します。</p>
+<h1 id="4-required-materials">4 Required Materials</h1>
+<p>Obtain the following data to use the application.</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th>データ種別</th>
-<th>用途</th>
-<th>形式</th>
+<th>Data type</th>
+<th>Purpose</th>
+<th>Format</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>①</td>
-<td>コード及びモデル</td>
-<td>3D都市モデル生成</td>
+<td>1</td>
+<td>Code and models</td>
+<td>3D city model generation</td>
 <td>.zip</td>
 </tr>
 </tbody>
 </table>
-<p>データ準備完了後、下記のコマンドで.zipを解凍：</p>
+<p>After preparing the data, extract the .zip file with the following command:</p>
 <pre><code>unzip Bridge2025UI.zip
 </code></pre>
-<p>ファイル構造は以下の通りです：</p>
+<p>The file structure is as follows:</p>
 <pre><code>root
 ├── BldgGen2025
 ├── BridgeUI
 ├── environment.yml
 └── requirements.txt
 </code></pre>
-<p>Bridge2025UIは下記の機械学習と深層学習のモデルが含まれています：</p>
+<p>Bridge2025UI includes the following machine learning and deep learning models:</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th>データ種別</th>
-<th>用途</th>
-<th>形式</th>
+<th>Data type</th>
+<th>Purpose</th>
+<th>Format</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>①</td>
-<td>生成AI建物生成モデル</td>
-<td>建物生成</td>
+<td>1</td>
+<td>Generative AI building generation model</td>
+<td>Building generation</td>
 <td>.ckpt</td>
 </tr>
 <tr>
-<td>②</td>
-<td>深層学習植生自動抽出モデル</td>
-<td>植生生成</td>
+<td>2</td>
+<td>Deep learning vegetation automatic extraction model</td>
+<td>Vegetation generation</td>
 <td>.onnx</td>
 </tr>
 <tr>
-<td>③</td>
-<td>深層学習MMS点群開口部自動抽出モデル</td>
-<td>LOD3生成</td>
+<td>3</td>
+<td>Deep learning MMS point-cloud opening automatic extraction model</td>
+<td>LOD3 generation</td>
 <td>.pt</td>
 </tr>
 <tr>
-<td>④</td>
-<td>深層学習街路画像開口部自動抽出モデル</td>
-<td>LOD3生成</td>
+<td>4</td>
+<td>Deep learning street-image opening automatic extraction model</td>
+<td>LOD3 generation</td>
 <td>.pt</td>
 </tr>
 </tbody>
 </table>
-<p>モデルの置く場所は既にBridge2025UI.zipで配置完了しています：</p>
-<h1 id="5-プログラム実行">5 プログラム実行</h1>
-<p>ツールを起動するには、まずフロントエンド環境を構築します。次に、既存の依存関係を一度削除してから再インストールを行い、その後ビルドを実行し、開発用サーバーを起動します。</p>
+<p>The model locations are already arranged in Bridge2025UI.zip.</p>
+<h1 id="5-running-the-program">5 Running the Program</h1>
+<p>To start the tool, first set up the frontend environment. Then remove the existing dependencies once, reinstall them, run the build, and start the development server.</p>
 <pre><code>conda activate gen3d_UI_2025
 cd BridgeUI
 rm -rf node_modules package-lock.json
@@ -215,116 +215,116 @@ npm install
 npm run build
 npm run dev:full
 </code></pre>
-<p>ローカルサーバーを外部公開するため、以下のコマンドを実行します。</p>
+<p>Run the following command to expose the local server externally.</p>
 <pre><code>cloudflared tunnel --url http://localhost:8080 --protocol http2
 </code></pre>
-<h1 id="6-本ツールを利用するにあたりユーザが準備する入力データ">6 本ツールを利用するにあたりユーザが準備する入力データ</h1>
-<p>本ツールを用いて 3D 都市モデルを生成するためには、以下の入力データをユーザ側で準備する必要があります。</p>
+<h1 id="6-input-data-prepared-by-the-user">6 Input Data Prepared by the User</h1>
+<p>To generate 3D city models with this tool, users must prepare the following input data.</p>
 <ul>
-<li>衛星画像データ</li>
-<li>建築物フットプリントデータ</li>
-<li>MMS（Mobile Mapping System）データ</li>
+<li>Satellite image data</li>
+<li>Building footprint data</li>
+<li>MMS (Mobile Mapping System) data</li>
 </ul>
-<p>各データの仕様を以下に示します。</p>
+<p>The specifications for each data type are shown below.</p>
 <hr>
-<h2 id="61-衛星画像データ">6.1 衛星画像データ</h2>
-<h3 id="1概要">（1）概要</h3>
-<p>衛星画像は、建築物モデル生成における基礎データとなります。</p>
-<h3 id="2推奨仕様">（2）推奨仕様</h3>
+<h2 id="61-satellite-image-data">6.1 Satellite Image Data</h2>
+<h3 id="1-overview">(1) Overview</h3>
+<p>Satellite images are the base data for building model generation.</p>
+<h3 id="2-recommended-specifications">(2) Recommended Specifications</h3>
 <table>
 <thead>
 <tr>
-<th>項目</th>
-<th>推奨条件</th>
+<th>Item</th>
+<th>Recommended condition</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>解像度</td>
-<td>0.3m 以上</td>
+<td>Resolution</td>
+<td>0.3 m or better</td>
 </tr>
 <tr>
-<td>バンド</td>
-<td>RGB（マルチスペクトル対応可）</td>
+<td>Bands</td>
+<td>RGB (multispectral data is also supported)</td>
 </tr>
 <tr>
-<td>投影座標系</td>
-<td>平面直角座標系 または UTM</td>
+<td>Projected coordinate system</td>
+<td>Plane rectangular coordinate system or UTM</td>
 </tr>
 <tr>
-<td>データ形式</td>
+<td>Data format</td>
 <td>GeoTIFF</td>
 </tr>
 <tr>
-<td>幾何補正</td>
-<td>オルソ補正済み</td>
+<td>Geometric correction</td>
+<td>Orthorectified</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="62-建築物フットプリントデータ">6.2 建築物フットプリントデータ</h2>
-<h3 id="1概要-1">（1）概要</h3>
-<p>建築物のフットプリントは、3D 都市モデル生成の基礎となるポリゴンデータです。</p>
-<h3 id="2推奨仕様-1">（2）推奨仕様</h3>
+<h2 id="62-building-footprint-data">6.2 Building Footprint Data</h2>
+<h3 id="1-overview-1">(1) Overview</h3>
+<p>Building footprints are polygon data that serve as the basis for generating 3D city models.</p>
+<h3 id="2-recommended-specifications-1">(2) Recommended Specifications</h3>
 <table>
 <thead>
 <tr>
-<th>項目</th>
-<th>推奨条件</th>
+<th>Item</th>
+<th>Recommended condition</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>データ形式</td>
+<td>Data format</td>
 <td>GeoJSON</td>
 </tr>
 <tr>
-<td>ジオメトリ</td>
-<td>ポリゴン</td>
+<td>Geometry</td>
+<td>Polygon</td>
 </tr>
 <tr>
-<td>トポロジ</td>
-<td>自己交差なし</td>
+<td>Topology</td>
+<td>No self-intersections</td>
 </tr>
 <tr>
-<td>座標系</td>
-<td>衛星画像と同一</td>
+<td>Coordinate system</td>
+<td>Same as the satellite image</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="63-mmsmobile-mapping-systemデータ">6.3 MMS（Mobile Mapping System）データ</h2>
-<h3 id="1概要-2">（1）概要</h3>
-<p>MMS データは、建築物の LOD3 モデル生成時の開口部（窓・扉）、都市設備、植生抽出に利用します。</p>
-<h3 id="2利用可能データ種別">（2）利用可能データ種別</h3>
+<h2 id="63-mms-mobile-mapping-system-data">6.3 MMS (Mobile Mapping System) Data</h2>
+<h3 id="1-overview-2">(1) Overview</h3>
+<p>MMS data are used to extract openings such as windows and doors, city furniture, and vegetation when generating LOD3 building models.</p>
+<h3 id="2-available-data-types">(2) Available Data Types</h3>
 <ul>
-<li>沿道画像（全周画像または前方画像）</li>
-<li>三次元点群（LiDAR）</li>
-<li>位置情報（IMU）</li>
+<li>Roadside images (spherical images or forward-facing images)</li>
+<li>3D point clouds (LiDAR)</li>
+<li>Positioning information (IMU)</li>
 </ul>
-<h3 id="3推奨仕様">（3）推奨仕様</h3>
+<h3 id="3-recommended-specifications">(3) Recommended Specifications</h3>
 <table>
 <thead>
 <tr>
-<th>項目</th>
-<th>推奨条件</th>
+<th>Item</th>
+<th>Recommended condition</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>点群密度</td>
-<td>500 点 / m² 以上推奨</td>
+<td>Point-cloud density</td>
+<td>500 points/m² or higher recommended</td>
 </tr>
 <tr>
-<td>画像解像度</td>
-<td>4K 相当以上</td>
+<td>Image resolution</td>
+<td>4K equivalent or higher</td>
 </tr>
 <tr>
-<td>位置精度</td>
-<td>水平誤差 10cm 以下</td>
+<td>Positioning accuracy</td>
+<td>Horizontal error of 10 cm or less</td>
 </tr>
 <tr>
-<td>データ形式</td>
+<td>Data format</td>
 <td>LAS / LAZ / JPEG / PNG</td>
 </tr>
 </tbody>
