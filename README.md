@@ -1,6 +1,6 @@
 # 3D City Model Generator
 
-![3D City Model Generator overview](figure/fig02.png)
+![3D City Model Generator overview](figure/workflow_3d.png)
 
 The 3D City Model Generator is an open-source web-based authoring tool for generating CityGML-compatible semantic 3D city models from heterogeneous urban data.
 
