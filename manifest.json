@@ -265,10 +265,30 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "resources/fig03_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig03_en.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "resources/fig04.png",
       "output": {
         "resource": {
           "relative_path": "resources/fig04.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/fig04_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig04_en.png"
         }
       },
       "version": ""
@@ -285,10 +305,30 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "resources/fig05_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig05_en.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "resources/fig06.png",
       "output": {
         "resource": {
           "relative_path": "resources/fig06.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/fig06_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig06_en.png"
         }
       },
       "version": ""
@@ -305,10 +345,30 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "resources/fig07_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig07_en.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "resources/fig08.png",
       "output": {
         "resource": {
           "relative_path": "resources/fig08.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/fig08_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/fig08_en.png"
         }
       },
       "version": ""
