@@ -10,7 +10,7 @@ This repository publishes the source code of the 3D city model generation tool d
 
 Project documentation is also available on the GitHub Pages site:
 
-https://project-plateau.github.io/3D-City-Model-Generator/index.html
+https://cbzhao2021.github.io/3D-City-Model-Generator-Research/index.html
 
 ## Key Features
 
@@ -184,54 +184,6 @@ CityGML export is intended to follow the PLATEAU v4-compatible workflow describe
 
 The backend API includes endpoints for upload, status polling, result download, job listing, deletion, and health checks.
 
-## Reproducibility Notes for CEUS Review
-
-For a CEUS software paper, this repository should be treated as research software rather than only a code archive. The following items are present in this repository:
-
-- Source code for the core generation pipeline.
-- Web frontend and backend code.
-- Python dependency files: `environment.yml` and `requirements.txt`.
-- UI and workflow figures.
-- Demo OBJ/MTL outputs for LoD2 and LoD3 visualization checks.
-- Repository license file.
-
-The following items are recommended before manuscript submission or public archival release:
-
-- Add `CITATION.cff` with the paper citation, software version, release date, license, and DOI.
-- Create a stable GitHub release, for example `v1.0.0` or `v1.0.0-ceus-submission`.
-- Archive the release on Zenodo and add the Zenodo DOI to `CITATION.cff` and this README.
-- Add a `NOTICE` file for third-party software, PLATEAU data, OpenStreetMap attribution, sample data attribution, and model-weight licenses.
-- Add a small legally cleared `sample_data/` directory or provide DOI-based download instructions for larger reproducibility data.
-- Add `docs/` pages for installation, quick start, input data, output CityGML, parameters, examples, troubleshooting, and FAQ.
-- Add `configs/` files for default, LoD1, LoD2, LoD3, CityGML export, and paper case-study settings.
-- Add minimal tests, especially CityGML export and geometry quality checks.
-- Add GitHub Actions for dependency installation and basic validation.
-
-## Citation
-
-If you use this software in research, please cite the associated software paper and archived software release.
-
-```text
-Citation information will be provided in CITATION.cff after the CEUS submission
-release and Zenodo DOI are created.
-```
-
-Recommended `CITATION.cff` fields for the release:
-
-```yaml
-cff-version: 1.2.0
-title: "3D City Model Generator"
-message: "If you use this software, please cite the following paper."
-type: software
-authors:
-  - family-names: "..."
-    given-names: "..."
-version: "1.0.0"
-date-released: "2026-05-31"
-url: "https://github.com/Project-PLATEAU/3D-City-Model-Generator"
-doi: "10.xxxx/zenodo.xxxxxxx"
-license: "MIT"
-```
 
 ## Software Availability Statement
 
