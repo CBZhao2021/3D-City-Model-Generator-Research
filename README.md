@@ -194,7 +194,7 @@ https://github.com/Project-PLATEAU/3D-City-Model-Generator
 The version used in the accompanying paper should be archived on Zenodo and cited with its DOI:
 
 ```text
-[Zenodo DOI to be added after release archival]
+https://doi.org/10.5281/zenodo.20407893
 ```
 
 The repository includes source code, documentation, installation instructions, dependency files, demo outputs, and web-based workflows for generating and checking 3D city model outputs. The software is distributed under the license specified in `LICENSE`.
