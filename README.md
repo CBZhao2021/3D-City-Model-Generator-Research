@@ -68,7 +68,7 @@ The frontend is a React/Vite application. The backend is a Python Flask service 
 Clone the repository:
 
 ```bash
-git clone https://github.com/Project-PLATEAU/3D-City-Model-Generator.git
+git clone https://github.com/CBZhao2021/3D-City-Model-Generator-Research.git
 cd 3D-City-Model-Generator
 ```
 
@@ -189,7 +189,7 @@ The backend API includes endpoints for upload, status polling, result download, 
 
 The 3D City Model Generator is released as open-source software at:
 
-https://github.com/Project-PLATEAU/3D-City-Model-Generator
+https://github.com/CBZhao2021/3D-City-Model-Generator-Research.git
 
 The version used in the accompanying paper should be archived on Zenodo and cited with its DOI:
 
